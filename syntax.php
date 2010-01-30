@@ -3,7 +3,7 @@
  * Plugin: RSS Ticker (Ajax invocation)
  * 
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Marcel Steinger
+ * @author     Marcel Steinger <sourcecode@steinger.ch>
  */
  
 // must be run within DokuWiki
@@ -18,19 +18,6 @@ require_once DOKU_PLUGIN.'syntax.php';
  */
 class syntax_plugin_rssticker extends DokuWiki_Syntax_Plugin {
  
-    /**
-          * return some info
-          */
-    function getInfo() {
-        return array('author' => 'Marcel Steinger',
-                     'email'  => 'marcel@steinger.ch',
-                     'date'   => '2010-01-20',
-                     'name'   => 'RSS Ticker',
-                     'desc'   => 'Based of Advanced RSS Ticker (Ajax invocation) by www.dynamicdrive.com',
-                     'url'    => 'http://www.dokuwiki.org/plugin:tutorial');
-    }
- 
-   
     function getType() { return 'substition'; }
     function getSort() { return 314; }
  
