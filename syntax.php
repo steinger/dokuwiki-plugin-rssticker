@@ -22,22 +22,24 @@ class syntax_plugin_rssticker extends DokuWiki_Syntax_Plugin {
     function getSort() { return 314; }
  
     function connectTo($mode) {
-        $this->Lexer->addSpecialPattern('{{rssticker>.*?}}',$mode,'plugin_rssticker');
+        $this->Lexer->addSpecialPattern('\{\{rssticker>[^}]*\}\}',$mode,'plugin_rssticker');
     }
 
     /**
           * Handle the match
           */
     function handle($match, $state, $pos, &$handler) {
+                 
             $match = substr($match,12,-2);
-            list($title,$url,$cachetime,$css,$delay,$optionalswitch) = explode(',',$match);
+            list($title,$url,$cachetime,$css,$delay,$optionalswitch,$align) = explode(',',$match);
             if ( empty($title)) { $title = "none";}
             if ( empty($url)) { $url = "none";}
             if ( empty($cachetime)) {$cachetime  = 600;}
-            if ( empty($css)) {$css  = "rss";}
-            if ( empty($delay)) {$delay = 3000;}
-            if ( empty($optionalswitch)) {$optionalswitch = "date";}
-            return array($title,$url,$cachetime,$css,$delay,$optionalswitch);
+            if ( empty($css)) { $css  = "rss";}
+            if ( empty($delay)) { $delay = 3000;}
+            if ( empty($optionalswitch)) { $optionalswitch = "date";}
+            if ( empty($align)) { $align = "left";}
+            return array($title,$url,$cachetime,$css,$delay,$optionalswitch,$align);
     }
 
     /**
@@ -46,12 +48,12 @@ class syntax_plugin_rssticker extends DokuWiki_Syntax_Plugin {
     function render($mode, &$renderer, $data) {
         if($mode == 'xhtml'){
             $linkscript = DOKU_URL."lib/plugins/rssticker/rssticker.js";
-            $renderer->doc .= "<script src=$linkscript type='text/javascript'></script>";
-            $renderer->doc .= "<div>";
+            $renderer->doc .= "<script src='$linkscript' type='text/javascript'></script>";
+            $renderer->doc .= "<div class=\"rssticker\" align='$data[6]'>";
             $renderer->doc .= "<script type='text/javascript' charset='UTF-8'>";
-            $renderer->doc .= "document.write('<b></i>$data[0]:</i></b>')\n";
+            $renderer->doc .= "document.write('<div class=\"rsshead\">$data[0]:</div>')\n";
             $renderer->doc .= "new rssticker_ajax('$data[1]', $data[2], '$data[3]box', '$data[3]class', $data[4], '$data[5]')";
-            $renderer->doc .= "</script></div>";
+            $renderer->doc .= "</script></div><div class=\"clearer\"></div>";
  
             return true;
         }

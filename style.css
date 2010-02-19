@@ -1,34 +1,45 @@
 div.dokuwiki div.rssclass{
-width: 400px;
-padding: 5px;
-background-color: #F3F3F3;
-border: 1px solid black;
-margin-bottom: 1em;
-filter:progid:DXImageTransform.Microsoft.alpha(opacity=80); /*Specify fade effect in IE. Remove if desired.*/
--moz-opacity: 0.8; /*Specify fade effect in Firefox. Remove if desired.*/
+    text-align:left;
+    width: 400px;
+    padding: 5px;
+    background-color: #F3F3F3;
+    border: 1px solid black;
+    margin-bottom: 1em;
+    filter:progid:DXImageTransform.Microsoft.alpha(opacity=80); /*Specify fade effect in IE. Remove if desired.*/
+    -moz-opacity: 0.8; /*Specify fade effect in Firefox. Remove if desired.*/
 }
 
 div.dokuwiki div.rssclass a{
-text-decoration: none;
+    text-decoration: none;
+    text-align:left;
 }
 
 div.dokuwiki div.rss2class{
-width: 400px;
-padding: 6px;
-background-color: lightyellow;
-border: 1px solid #004A00;
+    text-align:left;
+    width: 400px;
+    padding: 6px;
+    background-color: lightyellow;
+    border: 1px solid #004A00;
 }
 
 div.dokuwiki div.rsstitle{ /*shared class for all title elements in an RSS feed*/
-font-weight: bold;
+    font-weight: bold;
 }
 
 div.dokuwiki div.rssdate{ /*shared class for all date elements in an RSS feed*/
-color: gray;
-font-size: 85%;
+    color: gray;
+    font-size: 85%;
 }
 
 div.dokuwiki div.rssdescription{ /*shared class for all description elements in an RSS feed*/
 }
+
+div.dokuwiki div.rsshead{ /*shared class for all title elements in an RSS feed*/
+    font-weight: bold;
+    text-align:left;
+    width: 400px ;
+}
+
+
 
 // Setup VIM: ex: et ts=4 enc=utf-8 :

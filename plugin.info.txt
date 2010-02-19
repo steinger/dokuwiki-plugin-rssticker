@@ -1,7 +1,7 @@
 base    rssticker
 author  Marcel Steinger
 email   sourcecode@steinger.ch
-date    2010-01-30
+date    2010-02-19
 name    RSS Ticker Plugin
 desc    Based of Advanced RSS Ticker (Ajax invocation) by www.dynamicdrive.com
 url     http://www.dokuwiki.org/plugin:rssticker
