@@ -26,6 +26,13 @@
  To read the license please visit http://www.gnu.org/copyleft/gpl.html
  ======================================================================
 */
+// Dokuwiki  extension
+if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../../').'/');
+define('NOSESSION',true);
+define('DOKU_DISABLE_GZIP_OUTPUT', 1);
+require_once(DOKU_INC.'inc/init.php');
+require_once(DOKU_INC.'inc/auth.php');
+require_once(DOKU_INC.'inc/HTTPClient.php');
 
 /**
 * lastRSS
@@ -72,6 +79,18 @@ class lastRSS {
 					fclose($f);
 				}
 				if ($result) $result['cached'] = 0;
+                // cached file is very too old, about one week, deleted
+                $dh=opendir($this->cache_dir);
+                while ($file = readdir ($dh)) {
+                    if ($file != "." && $file != "..") {
+                        if (file_exists($this->cache_dir."/".$file)) {
+                            if ((fileatime($this->cache_dir."/".$file)+604800) <=  time()) {
+                            unlink ($this->cache_dir."/".$file);
+                            }
+                        }
+                    }
+                }
+                closedir($dh);
 			}
 		}
 		// If CACHE DISABLED >> load and parse the file directly
@@ -132,13 +151,8 @@ class lastRSS {
 	// -------------------------------------------------------------------
 	function Parse ($rss_url) {
 		// Open and load RSS file
-		if ($f = @fopen($rss_url, 'r')) {
-			$rss_content = '';
-			while (!feof($f)) {
-				$rss_content .= fgets($f, 4096);
-			}
-			fclose($f);
-
+        $http = new DokuHTTPClient();
+		if ($rss_content = $http->get($rss_url)) {
 			// Parse document encoding
 			$result['encoding'] = $this->my_preg_match("'encoding=[\'\"](.*?)[\'\"]'si", $rss_content);
 			// if document codepage is specified, use it
@@ -158,7 +172,7 @@ class lastRSS {
 			// If date_format is specified and lastBuildDate is valid
 			if ($this->date_format != '' && ($timestamp = strtotime($result['lastBuildDate'])) !==-1) {
 						// convert lastBuildDate to specified date format
-						$result['lastBuildDate'] = date($this->date_format, $timestamp);
+						$result['lastBuildDate'] = strftime($this->date_format, $timestamp);
 			}
 
 			// Parse TEXTINPUT info
@@ -203,7 +217,7 @@ class lastRSS {
 					// If date_format is specified and pubDate is valid
 					if ($this->date_format != '' && ($timestamp = strtotime($result['items'][$i]['pubDate'])) !==-1) {
 						// convert pubDate to specified date format
-						$result['items'][$i]['pubDate'] = date($this->date_format, $timestamp);
+						$result['items'][$i]['pubDate'] = strftime($this->date_format, $timestamp);
 					}
 					// Item counter
 					$i++;

@@ -8,7 +8,6 @@
  
 // must be run within DokuWiki
 if(!defined('DOKU_INC')) die();
- 
 if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once DOKU_PLUGIN.'syntax.php';
  
@@ -41,7 +40,6 @@ class syntax_plugin_rssticker extends DokuWiki_Syntax_Plugin {
             if ( empty($align)) { $align = "left";}
             return array($title,$url,$cachetime,$css,$delay,$optionalswitch,$align);
     }
-
     /**
           * Create output
           */
@@ -54,7 +52,6 @@ class syntax_plugin_rssticker extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= "document.write('<div class=\"rsshead\">$data[0]:</div>')\n";
             $renderer->doc .= "new rssticker_ajax('$data[1]', $data[2], '$data[3]box', '$data[3]class', $data[4], '$data[5]')";
             $renderer->doc .= "</script></div><div class=\"clearer\"></div>";
- 
             return true;
         }
         return false;
