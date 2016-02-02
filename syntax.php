@@ -27,7 +27,7 @@ class syntax_plugin_rssticker extends DokuWiki_Syntax_Plugin {
     /**
           * Handle the match
           */
-    function handle($match, $state, $pos, &$handler) {
+    function handle($match, $state, $pos, Doku_Handler $handler) {
                  
             $match = substr($match,12,-2);
             list($title,$url,$cachetime,$css,$delay,$optionalswitch,$align) = explode(',',$match);
@@ -43,7 +43,7 @@ class syntax_plugin_rssticker extends DokuWiki_Syntax_Plugin {
     /**
           * Create output
           */
-    function render($mode, &$renderer, $data) {
+    function render($mode, Doku_Renderer $renderer, $data) {
         if($mode == 'xhtml'){
             $linkscript = DOKU_URL."lib/plugins/rssticker/rssticker.js";
             $renderer->doc .= "<script src='$linkscript' type='text/javascript'></script>";
